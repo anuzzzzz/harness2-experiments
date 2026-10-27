@@ -1,0 +1,56 @@
+{
+  "experiment": "e4-terminal-bench",
+  "task": "db-wal-recovery",
+  "cached": false,
+  "at": "2026-10-27T14:43:46+00:00",
+  "ok": true,
+  "delivered": true,
+  "score": {
+    "n_passed": 1,
+    "n_criteria": 1,
+    "all_pass": true,
+    "reward": 1.0
+  },
+  "meta": {
+    "ok": true,
+    "cost_usd": 0.007043,
+    "exception": null,
+    "agent_timed_out": false,
+    "attempts": [
+      {
+        "attempt": 0,
+        "harbor_exit": 0,
+        "exception": "",
+        "message": "",
+        "reward_present": true,
+        "cost_usd": 0.007043,
+        "seconds": 134.4
+      }
+    ],
+    "timings": {
+      "environment_setup": {
+        "started_at": "2026-10-27T14:43:49.070719Z",
+        "finished_at": "2026-10-27T14:43:59.295516Z"
+      },
+      "agent_setup": {
+        "started_at": "2026-10-27T14:43:59.295620Z",
+        "finished_at": "2026-10-27T14:45:00.453076Z"
+      },
+      "agent_execution": {
+        "started_at": "2026-10-27T14:45:00.453461Z",
+        "finished_at": "2026-10-27T14:45:33.993330Z"
+      },
+      "verifier": {
+        "started_at": "2026-10-27T14:45:34.255816Z",
+        "finished_at": "2026-10-27T14:45:39.906631Z"
+      }
+    },
+    "task_id": "db-wal-recovery",
+    "run_id": "h2x-smoke/db-wal-recovery",
+    "exit_code": 0,
+    "runner_timed_out": false,
+    "wall_s": 134.518
+  },
+  "cost_usd": 0.007043,
+  "seconds": 134.5
+}

@@ -1,0 +1,12 @@
+{
+  "budget_usd": 22.0,
+  "experiment": "e4-terminal-bench",
+  "phases": {
+    "smoke": {
+      "github_run": "40523398426",
+      "updated": "2026-10-27T14:46:00+00:00",
+      "usd": 0.007043
+    }
+  },
+  "total_usd": 0.007043
+}
