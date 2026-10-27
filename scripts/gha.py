@@ -12,6 +12,7 @@ without downloading the full job log.
 from __future__ import annotations
 
 import argparse
+import os
 import re
 import sys
 import unittest
@@ -56,6 +57,9 @@ class _Result(unittest.TextTestResult):
 
 
 def run_tests(argv: list[str]) -> int:
+    # like `python -m unittest`: test modules are named relative to the working directory
+    if os.getcwd() not in sys.path:
+        sys.path.insert(0, os.getcwd())
     runner = unittest.TextTestRunner(stream=sys.stdout, verbosity=2, resultclass=_Result)
     prog = unittest.main(module=None, argv=["unittest", *argv], testRunner=runner, exit=False)
     r = prog.result
