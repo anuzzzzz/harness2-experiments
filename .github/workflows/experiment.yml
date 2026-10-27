@@ -6,6 +6,7 @@ name: experiment
 #   report rebuild results/<exp>/summary + README table (free)
 #   all    train -> eval -> report
 # Every phase resumes: re-running it continues where the last run stopped.
+# Each paid step's output tail is posted as an annotation on the run page (scripts/gha.py).
 
 on:
   workflow_dispatch:
@@ -115,9 +116,14 @@ jobs:
           key: h2x-state-${{ inputs.experiment }}-${{ github.run_id }}
           restore-keys: h2x-state-${{ inputs.experiment }}-
       - name: One real rollout (base harness), graded and priced
+        id: run
+        shell: bash
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: h2x smoke "$EXP"
+        run: h2x smoke "$EXP" 2>&1 | tee -ia "$RUNNER_TEMP/h2x-step.log"
+      - name: Post the step's output as an annotation
+        if: always() && steps.run.outcome != 'skipped'
+        run: python scripts/gha.py annotate --title "smoke $EXP" --outcome "${{ steps.run.outcome }}" --lines 60 "$RUNNER_TEMP/h2x-step.log"
       - uses: actions/cache/save@v4
         if: always()
         with:
@@ -164,9 +170,14 @@ jobs:
           key: h2x-state-${{ inputs.experiment }}-${{ github.run_id }}
           restore-keys: h2x-state-${{ inputs.experiment }}-
       - name: Harness2 on the train tasks (resumable, stops itself before the 6 h job limit)
+        id: run
+        shell: bash
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: h2x train "$EXP" --soft-min 290 --hard-min 340
+        run: h2x train "$EXP" --soft-min 290 --hard-min 340 2>&1 | tee -ia "$RUNNER_TEMP/h2x-step.log"
+      - name: Post the step's output as an annotation
+        if: always() && steps.run.outcome != 'skipped'
+        run: python scripts/gha.py annotate --title "train $EXP" --outcome "${{ steps.run.outcome }}" --lines 80 "$RUNNER_TEMP/h2x-step.log"
       - uses: actions/cache/save@v4
         if: always()
         with:
@@ -218,9 +229,14 @@ jobs:
           key: h2x-state-${{ inputs.experiment }}-${{ github.run_id }}
           restore-keys: h2x-state-${{ inputs.experiment }}-
       - name: Base vs final harness on this shard of the test tasks
+        id: run
+        shell: bash
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: h2x eval "$EXP" --shard ${{ matrix.shard }}
+        run: h2x eval "$EXP" --shard ${{ matrix.shard }} 2>&1 | tee -ia "$RUNNER_TEMP/h2x-step.log"
+      - name: Post the step's output as an annotation
+        if: always() && steps.run.outcome != 'skipped'
+        run: python scripts/gha.py annotate --title "eval $EXP shard ${{ matrix.shard }}" --outcome "${{ steps.run.outcome }}" --lines 80 "$RUNNER_TEMP/h2x-step.log"
       - uses: actions/upload-artifact@v4
         if: always()
         with:

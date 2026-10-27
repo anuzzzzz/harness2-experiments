@@ -1,5 +1,6 @@
 name: ci
 # Offline checks on every push: no secrets, no model calls, no spend.
+# Test results are also posted as annotations (scripts/gha.py), readable on the run page.
 
 on:
   push:
@@ -20,7 +21,7 @@ jobs:
         with:
           family: core
       - name: Unit tests and fake end-to-end runs (Harness2 for real, every model faked)
-        run: python -m unittest discover -s tests -t . -v
+        run: python scripts/gha.py tests discover -s tests -t .
 
   tau2-contract:
     name: tau2-bench API contract
@@ -31,7 +32,7 @@ jobs:
       - uses: ./.github/actions/setup
         with:
           family: tau
-      - run: python -m unittest tests.test_contract_tau2 -v
+      - run: python scripts/gha.py tests tests.test_contract_tau2
 
   harbor-contract:
     name: Harbor API contract
@@ -43,4 +44,4 @@ jobs:
         uses: ./.github/actions/setup
         with:
           family: harbor
-      - run: python -m unittest tests.test_contract_harbor -v
+      - run: python scripts/gha.py tests tests.test_contract_harbor
