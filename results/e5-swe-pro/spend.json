@@ -1,0 +1,12 @@
+{
+  "budget_usd": 23.5,
+  "experiment": "e5-swe-pro",
+  "phases": {
+    "smoke": {
+      "github_run": "40523398426",
+      "updated": "2026-10-27T14:47:00+00:00",
+      "usd": 0.006967
+    }
+  },
+  "total_usd": 0.006967
+}

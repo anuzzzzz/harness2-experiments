@@ -1,0 +1,56 @@
+{
+  "experiment": "e5-swe-pro",
+  "task": "instance_internetarchive__openlibrary-6afdb09df692223c3a31df65cfa92f15e5614c01-v08d8e8889ec945ab821fb156c04c7d2e2810debb",
+  "cached": false,
+  "at": "2026-10-27T14:44:41+00:00",
+  "ok": true,
+  "delivered": true,
+  "score": {
+    "n_passed": 1,
+    "n_criteria": 1,
+    "all_pass": true,
+    "reward": 1.0
+  },
+  "meta": {
+    "ok": true,
+    "cost_usd": 0.006967,
+    "exception": null,
+    "agent_timed_out": false,
+    "attempts": [
+      {
+        "attempt": 0,
+        "harbor_exit": 0,
+        "exception": "",
+        "message": "",
+        "reward_present": true,
+        "cost_usd": 0.006967,
+        "seconds": 138.8
+      }
+    ],
+    "timings": {
+      "environment_setup": {
+        "started_at": "2026-10-27T14:44:45.353647Z",
+        "finished_at": "2026-10-27T14:45:58.758716Z"
+      },
+      "agent_setup": {
+        "started_at": "2026-10-27T14:45:58.758779Z",
+        "finished_at": "2026-10-27T14:46:11.325519Z"
+      },
+      "agent_execution": {
+        "started_at": "2026-10-27T14:46:11.325812Z",
+        "finished_at": "2026-10-27T14:46:46.477742Z"
+      },
+      "verifier": {
+        "started_at": "2026-10-27T14:46:46.801087Z",
+        "finished_at": "2026-10-27T14:46:49.606004Z"
+      }
+    },
+    "task_id": "instance_internetarchive__openlibrary-6afdb09df692223c3a31df65cfa92f15e5614c01-v08d8e8889ec945ab821fb156c04c7d2e2810debb",
+    "run_id": "h2x-smoke/instance_internetarchive__openlibrary-6afdb09df692223c3a31df65cfa92f15e5614c01-v08d8e8889ec945ab821fb156c04c7d2e2810debb",
+    "exit_code": 0,
+    "runner_timed_out": false,
+    "wall_s": 138.902
+  },
+  "cost_usd": 0.006967,
+  "seconds": 138.9
+}
