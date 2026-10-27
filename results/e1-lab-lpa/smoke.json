@@ -1,0 +1,22 @@
+{
+  "experiment": "e1-lab-lpa",
+  "task": "lpa-02",
+  "cached": false,
+  "at": "2026-10-27T14:48:12+00:00",
+  "ok": true,
+  "delivered": true,
+  "score": {
+    "n_passed": 94,
+    "n_criteria": 99,
+    "notes": "94/99 criteria; 0 judge errors counted as fail",
+    "exit_code": 0,
+    "all_pass": false,
+    "identity": {
+      "check": "h2x lab-grade --task-json check/task.json --output-dir output --judge-model claude-haiku-5-5 --cost-file \"$HARNESS2_RUN_DIR/.h2x_judge.json\" --details \"$HARNESS2_RUN_DIR/.h2x_lab_scores.json\"",
+      "check_sha256": "422979076aa452c2336fcd3ec22b1398eed2afd4d52645ab00df3af80fbe29ac"
+    }
+  },
+  "meta": null,
+  "cost_usd": 0.491042,
+  "seconds": 458.8
+}
