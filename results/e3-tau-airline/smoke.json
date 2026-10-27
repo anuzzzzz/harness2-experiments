@@ -1,0 +1,32 @@
+{
+  "experiment": "e3-tau-airline",
+  "task": "11",
+  "cached": false,
+  "at": "2026-10-27T14:41:34+00:00",
+  "ok": true,
+  "delivered": true,
+  "score": {
+    "n_passed": 1,
+    "n_criteria": 1,
+    "all_pass": true,
+    "reward": 1.0
+  },
+  "meta": {
+    "ok": true,
+    "cost_usd": 0.018844,
+    "termination_reason": "user_stop",
+    "agent_cost_usd": 0.016214,
+    "user_cost_usd": 0.00263,
+    "agent_calls": 14,
+    "guide_opens": 0,
+    "seconds": 52.7,
+    "attempts": [],
+    "task_id": "11",
+    "run_id": "h2x-smoke/11",
+    "exit_code": 0,
+    "runner_timed_out": false,
+    "wall_s": 55.952
+  },
+  "cost_usd": 0.018844,
+  "seconds": 56.0
+}
