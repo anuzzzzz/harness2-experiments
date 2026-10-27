@@ -17,7 +17,7 @@ Anthropic API, with hard spending caps (≈ $100 in total).
 | 4 | [Terminal-Bench 2.0 — terminal tasks in containers](results/e4-terminal-bench/README.md) | –×1 | – | – | – | not run yet | $0.01 / $22 |
 | 5 | [SWE-bench Pro (openlibrary) — repository issues](results/e5-swe-pro/README.md) | –×1 | – | – | – | not run yet | $0.01 / $23.5 |
 
-_Last updated 2026-10-27 15:02 UTC._
+_Last updated 2026-10-27 15:10 UTC._
 <!-- results:end -->
 
 Δ is in percentage points, final harness minus starting harness, averaged over held-out tasks;
