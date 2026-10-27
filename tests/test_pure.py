@@ -214,5 +214,28 @@ class Ledger(unittest.TestCase):
                 config.RESULTS = original
 
 
+class Report(unittest.TestCase):
+    def test_global_table_uses_current_spend_not_a_stale_summary(self):
+        from h2x import report
+
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            (tmp / "README.md").write_text(f"x\n{report.START}\nold\n{report.END}\n")
+            original = (config.RESULTS, config.REPO)
+            try:
+                config.RESULTS, config.REPO = tmp / "results", tmp
+                exp = config.load("e3-tau-airline")
+                exp.results_dir.mkdir(parents=True)
+                (exp.results_dir / "summary.json").write_text(json.dumps({"spend_usd": 0.0}))
+                ledger.record(exp, "smoke", 0.25)
+                rows = report.write_all([])  # what publish_results.sh runs
+                table = (tmp / "README.md").read_text()
+            finally:
+                config.RESULTS, config.REPO = original
+        row = next(r for r in rows if r["id"] == "e3-tau-airline")
+        self.assertAlmostEqual(row["spend_usd"], 0.25)
+        self.assertIn("$0.25 / $15.5", table)
+
+
 if __name__ == "__main__":
     unittest.main()

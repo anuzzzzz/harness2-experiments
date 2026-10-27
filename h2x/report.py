@@ -189,10 +189,11 @@ def update_global(rows: list[dict]) -> None:
 
 
 def write_all(ids: list[str] | None = None) -> list[dict]:
+    """Rewrite the pages of `ids` (None = every experiment); the global table always reflects
+    every experiment's committed files (spend, eval shards), never a stale summary.json."""
     rows = []
     for exp_id in config.all_ids():
         exp = config.load(exp_id)
-        rows.append(write(exp) if (ids is None or exp_id in ids) else
-                    _load(exp.results_dir / "summary.json") or summarize(exp))
+        rows.append(write(exp) if (ids is None or exp_id in ids) else summarize(exp))
     update_global(rows)
     return rows

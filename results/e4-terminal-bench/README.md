@@ -5,7 +5,7 @@
 **Verdict:** not run yet  
 Held-out tasks: 0 (×1 repeats) · base – → final – (Δ – pts, 95% CI – to –; tasks better/worse/same 0/0/0, sign test p=–)  
 In-task (paper protocol, train tasks): base – → adopted – over 0 task(s)  
-Spend: $0.00 of $22
+Spend: $0.01 of $22
 
 Metric: Harbor verifier reward (1 = the task's tests pass after the agent finishes, else 0). Models: executor `anthropic/claude-haiku-5-5`, improver `anthropic/claude-sonnet-5-5`
 

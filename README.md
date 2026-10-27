@@ -11,13 +11,13 @@ Anthropic API, with hard spending caps (≈ $100 in total).
 <!-- results:start -->
 | # | Experiment | Held-out tasks | Base | Harness² | Δ (95% CI) | Verdict | Spend |
 |---|---|---|---|---|---|---|---|
-| 1 | [Harvey LAB — drafting a fund LPA from a precedent](results/e1-lab-lpa/README.md) | –×1 | – | – | – | not run yet | $0.00 / $22.5 |
-| 2 | [τ³-bench banking_knowledge — customer service over a knowledge base](results/e2-tau-banking/README.md) | –×2 | – | – | – | not run yet | $0.00 / $16.5 |
-| 3 | [τ²-bench airline — customer service](results/e3-tau-airline/README.md) | –×3 | – | – | – | not run yet | $0.00 / $15.5 |
-| 4 | [Terminal-Bench 2.0 — terminal tasks in containers](results/e4-terminal-bench/README.md) | –×1 | – | – | – | not run yet | $0.00 / $22 |
-| 5 | [SWE-bench Pro (openlibrary) — repository issues](results/e5-swe-pro/README.md) | –×1 | – | – | – | not run yet | $0.00 / $23.5 |
+| 1 | [Harvey LAB — drafting a fund LPA from a precedent](results/e1-lab-lpa/README.md) | –×1 | – | – | – | not run yet | $0.49 / $22.5 |
+| 2 | [τ³-bench banking_knowledge — customer service over a knowledge base](results/e2-tau-banking/README.md) | –×2 | – | – | – | not run yet | $0.04 / $16.5 |
+| 3 | [τ²-bench airline — customer service](results/e3-tau-airline/README.md) | –×3 | – | – | – | not run yet | $0.02 / $15.5 |
+| 4 | [Terminal-Bench 2.0 — terminal tasks in containers](results/e4-terminal-bench/README.md) | –×1 | – | – | – | not run yet | $0.01 / $22 |
+| 5 | [SWE-bench Pro (openlibrary) — repository issues](results/e5-swe-pro/README.md) | –×1 | – | – | – | not run yet | $0.01 / $23.5 |
 
-_Last updated 2026-10-27 14:55 UTC._
+_Last updated 2026-10-27 15:02 UTC._
 <!-- results:end -->
 
 Δ is in percentage points, final harness minus starting harness, averaged over held-out tasks;

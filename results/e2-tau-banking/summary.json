@@ -28,7 +28,7 @@
   },
   "verdict": "not run yet",
   "eval_status_counts": {},
-  "spend_usd": 0,
+  "spend_usd": 0.04485,
   "budget_usd": 16.5,
   "train": {
     "harness2_exit": null,
@@ -36,7 +36,7 @@
     "final_harness": null,
     "final_changes": null
   },
-  "updated": "2026-10-27T05:24:32+00:00",
+  "updated": "2026-10-27T15:02:16+00:00",
   "in_task": {
     "n_tasks": 0,
     "base_mean": null,

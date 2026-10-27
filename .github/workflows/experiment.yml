@@ -142,6 +142,7 @@ jobs:
       - name: Publish results
         if: always()
         run: |
+          h2x report "$EXP" || true
           bash scripts/publish_results.sh "$EXP" "results($EXP): smoke"
 
   train:

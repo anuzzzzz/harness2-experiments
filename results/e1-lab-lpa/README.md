@@ -5,7 +5,7 @@
 **Verdict:** not run yet  
 Held-out tasks: 0 (×1 repeats) · base – → final – (Δ – pts, 95% CI – to –; tasks better/worse/same 0/0/0, sign test p=–)  
 In-task (paper protocol, train tasks): base – → adopted – over 0 task(s)  
-Spend: $0.00 of $22.5
+Spend: $0.49 of $22.5
 
 Metric: share of LAB rubric criteria met (LLM judge per criterion, LAB's own prompt and extraction). Models: executor `anthropic/claude-haiku-5-5`, improver `anthropic/claude-sonnet-5-5`, judge `claude-haiku-5-5`
 
