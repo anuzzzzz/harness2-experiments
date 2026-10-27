@@ -24,6 +24,7 @@ class HarborContract(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         os.environ.setdefault("ANTHROPIC_API_KEY", "offline-test-not-a-key")
+        os.environ.setdefault("HARBOR_TELEMETRY", "0")
 
     def test_agent_subclasses_claude_code(self):
         from harbor.agents.installed.claude_code import ClaudeCode
@@ -60,15 +61,28 @@ class HarborContract(unittest.TestCase):
         for script in (agent.INSTALL, agent.CAPTURE, agent.REMOVE):
             subprocess.run(["bash", "-n", "-c", script], check=True)
 
-    def test_run_cli_flags_exist(self):
-        out = subprocess.run(["harbor", "run", "--help"], capture_output=True, text=True,
-                             env={**os.environ, "COLUMNS": "250", "HARBOR_TELEMETRY": "0"})
-        self.assertEqual(out.returncode, 0, out.stderr[-2000:])
-        text = out.stdout
-        for flag in ("--path", "--agent", "--model", "--jobs-dir", "--job-name", "--n-concurrent",
-                     "--n-attempts", "--yes", "--quiet", "--agent-kwarg", "--effort",
-                     "--agent-timeout-multiplier"):
-            self.assertIn(flag, text, flag)
+    def test_runner_command_line_parses(self):
+        """The exact `harbor run` command line h2x builds is accepted by Harbor's own CLI parser,
+        and its --ak values are valid Claude Code agent options."""
+        from argparse import Namespace
+
+        from harbor.agents.installed.claude_code import ClaudeCodeOptions
+        from harbor.cli.main import app
+        from harbor.cli.utils import parse_kwargs
+        from typer.main import get_command
+
+        from h2x.harbor_runner.cli import _command
+
+        args = Namespace(harbor="harbor", task_dir=Path(tempfile.mkdtemp()),
+                         model="anthropic/claude-haiku-5-5", max_budget_usd=1.0, max_turns=40,
+                         claude_version="2.1.0", effort="medium", agent_timeout_multiplier=0.5)
+        cmd = _command(args, Path(tempfile.mkdtemp()) / "job")
+        self.assertEqual(cmd[:2], ["harbor", "run"])
+        run = get_command(app).commands["run"]
+        run.make_context("run", list(cmd[2:]))  # raises click.UsageError on any unknown flag/value
+        aks = [cmd[i + 1] for i, tok in enumerate(cmd) if tok == "--ak"]
+        opts = ClaudeCodeOptions(**parse_kwargs(aks))
+        self.assertEqual((opts.max_budget_usd, opts.max_turns, opts.version), ("1.00", 40, "2.1.0"))
 
     def test_claude_code_options(self):
         from harbor.agents.installed.claude_code import ClaudeCodeOptions
