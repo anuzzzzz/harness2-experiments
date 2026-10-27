@@ -1,0 +1,34 @@
+# Harness² settings for e3-tau-airline (pinned fork 3ae3ae/harness2-cli@0c81134).
+[suite]
+name = "h2x-tau"
+work = ""
+
+[paths]
+harness = "harness"
+
+[executor]
+# h2x-tau runs tau2's own agent; these fields only describe it to Harness2.
+name = "command"
+model = "anthropic/claude-haiku-5-5"
+command = "python -m h2x.tau_runner run"
+editable = ["AGENT.md", "guides/*.md"]
+timeout = 3000
+
+[improver]
+channel = "claude"
+model = "anthropic/claude-sonnet-5-5"
+# --max-budget-usd caps a single runaway session; the run-level cap is --budget-usd (h2x train).
+bin = "claude --max-budget-usd 3"
+effort = "high"
+timeout = 3600
+
+[reflector]
+effort = "medium"
+
+[run]
+k = 1
+modes = "parallel"
+workers = 1
+phase_width = 2
+proposer_concurrency = 2
+obs_trunc = 12000

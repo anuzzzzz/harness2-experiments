@@ -1,0 +1,34 @@
+id = "e5-swe-pro"
+title = "SWE-bench Pro (openlibrary) — repository issues"
+question = "Does a Claude Code harness that Harness² refines on 3 openlibrary issues raise Claude Haiku 5.5's resolve rate on 10 other openlibrary issues, i.e. does repository knowledge learned by the harness transfer?"
+suite = "h2x-harbor"
+domain = "openlibrary"
+metric = "Harbor verifier reward (1 = the instance's fail-to-pass and pass-to-pass tests pass, else 0)"
+
+[models]
+executor = "anthropic/claude-haiku-5-5"
+improver = "anthropic/claude-sonnet-5-5"
+
+[budget]
+total_usd = 23.5
+train_usd = 14.0
+eval_usd = 9.0
+smoke_usd = 0.5
+
+[eval]
+repeats = 1
+shards = 5
+concurrency = 2
+
+[harbor]
+kind = "repo"
+max_budget_usd = 1.5
+agent_timeout_multiplier = 0.5     # Harbor's 3000 s default -> 25 min, equal for both arms
+retries = 1
+
+[estimate]
+# per-unit guesses used only by `h2x plan`; the [budget] caps are what bind
+rollout_usd = 0.45
+improver_session_usd = 0.75
+reflector_session_usd = 0.25
+consolidation_usd = 1.0

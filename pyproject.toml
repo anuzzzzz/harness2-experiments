@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "h2x"
+version = "0.1.0"
+description = "Five pre-registered experiments: does Harness2 harness refinement raise agent scores on held-out tasks?"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.12,<3.14"
+# harness2-cli and the benchmark packages are pinned in requirements/*.txt and installed
+# per experiment family, because tau2-bench and Harbor pin incompatible LiteLLM versions.
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[project.scripts]
+h2x = "h2x.cli:main"
+
+[project.entry-points."harness2.suites"]
+h2x-tau = "h2x.suites.tau"
+h2x-harbor = "h2x.suites.harbor"
+h2x-lab = "h2x.suites.lab"
+
+[tool.setuptools.packages.find]
+include = ["h2x*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100

@@ -1,0 +1,39 @@
+id = "e3-tau-airline"
+title = "τ²-bench airline — customer service"
+question = "Does a harness that Harness² refines on 3 airline conversations raise Claude Haiku 5.5's pass rate on the 20 held-out conversations of tau2's official airline test split?"
+suite = "h2x-tau"
+domain = "airline"
+metric = "tau2 reward per conversation (1 = the database ends exactly as the policy-correct resolution leaves it and required information was communicated, else 0)"
+
+[models]
+executor = "anthropic/claude-haiku-5-5"   # the agent being improved (frozen weights)
+user = "anthropic/claude-haiku-5-5"       # tau2's simulated customer
+improver = "anthropic/claude-sonnet-5-5"  # Harness² improver/reflector (see .harness2/config.toml)
+
+[budget]
+total_usd = 15.5
+train_usd = 10.0
+eval_usd = 5.0
+smoke_usd = 0.3
+
+[eval]
+repeats = 3          # pass^1..pass^3 per arm; pairs share the repeat index (seed)
+shards = 4
+concurrency = 4
+
+[tau]
+domain = "airline"
+max_steps = 200
+max_errors = 10
+timeout_s = 900
+communicate_scorer = "substring"   # tau2's original matcher; the semantic default needs OpenAI
+max_tokens = 16000                 # ceiling incl. adaptive thinking; no temperature (Claude 5.5 rejects it)
+retries = 2
+seed = 300
+
+[estimate]
+# per-unit guesses used only by `h2x plan`; the [budget] caps are what bind
+rollout_usd = 0.04
+improver_session_usd = 0.75
+reflector_session_usd = 0.25
+consolidation_usd = 1.0

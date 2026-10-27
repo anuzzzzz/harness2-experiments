@@ -1,0 +1,39 @@
+{
+  "train": [
+    "task_017",
+    "task_050",
+    "task_093"
+  ],
+  "test": [
+    "task_001",
+    "task_007",
+    "task_021",
+    "task_040",
+    "task_041",
+    "task_048",
+    "task_053",
+    "task_055",
+    "task_062",
+    "task_063",
+    "task_064",
+    "task_065",
+    "task_071",
+    "task_074",
+    "task_078",
+    "task_080",
+    "task_082",
+    "task_083",
+    "task_085",
+    "task_089",
+    "task_097",
+    "task_098",
+    "task_099",
+    "task_100"
+  ],
+  "selection": {
+    "rule": "seeded shuffle of all 97 banking_knowledge tasks (no official split exists): first 3 -> train, next 24 -> test",
+    "seed": 20261027,
+    "pool": 97,
+    "source": "sierra-research/tau2-bench@989d3285ae669e49503324bdb9981bf14fccedeb (v2.0.0)"
+  }
+}

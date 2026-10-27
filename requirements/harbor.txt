@@ -1,0 +1,2 @@
+# Harbor (Terminal-Bench 2.0 / SWE-bench Pro runner), pinned to the commit the adapters were written against.
+harbor @ git+https://github.com/laude-institute/harbor@e77a18bfeed53f907f335b9132d87006e01b3dfd

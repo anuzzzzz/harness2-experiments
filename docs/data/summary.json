@@ -1,0 +1,250 @@
+{
+  "experiments": [
+    {
+      "id": "e1-lab-lpa",
+      "title": "Harvey LAB \u2014 drafting a fund LPA from a precedent",
+      "question": "Does a Claude Code harness that Harness\u00b2 refines on 3 LPA-drafting matters raise the share of rubric criteria Claude Haiku 5.5 meets on 6 held-out matters (different funds, documents and terms)?",
+      "metric": "share of LAB rubric criteria met (LLM judge per criterion, LAB's own prompt and extraction)",
+      "models": {
+        "executor": "anthropic/claude-haiku-5-5",
+        "improver": "anthropic/claude-sonnet-5-5",
+        "judge": "claude-haiku-5-5"
+      },
+      "n_train_tasks": 3,
+      "n_test_tasks": 6,
+      "repeats": 1,
+      "transfer": {
+        "n_tasks": 0,
+        "base_mean": null,
+        "final_mean": null,
+        "delta": null,
+        "ci95": [
+          null,
+          null
+        ],
+        "wins": 0,
+        "losses": 0,
+        "ties": 0,
+        "sign_test_p": null,
+        "per_task": {}
+      },
+      "verdict": "not run yet",
+      "eval_status_counts": {},
+      "spend_usd": 0,
+      "budget_usd": 22.5,
+      "train": {
+        "harness2_exit": null,
+        "tasks_finished": null,
+        "final_harness": null,
+        "final_changes": null
+      },
+      "updated": "2026-10-27T05:24:32+00:00",
+      "in_task": {
+        "n_tasks": 0,
+        "base_mean": null,
+        "adopted_mean": null
+      }
+    },
+    {
+      "id": "e2-tau-banking",
+      "title": "\u03c4\u00b3-bench banking_knowledge \u2014 customer service over a knowledge base",
+      "question": "Does a harness that Harness\u00b2 refines on 3 banking conversations raise Claude Haiku 5.5's pass rate on 24 held-out conversations, where answers depend on a 698-document knowledge base searched with BM25?",
+      "metric": "tau2 reward per conversation (1 = the database ends in the expected state, else 0)",
+      "models": {
+        "executor": "anthropic/claude-haiku-5-5",
+        "user": "anthropic/claude-haiku-5-5",
+        "improver": "anthropic/claude-sonnet-5-5"
+      },
+      "n_train_tasks": 3,
+      "n_test_tasks": 24,
+      "repeats": 2,
+      "transfer": {
+        "n_tasks": 0,
+        "base_mean": null,
+        "final_mean": null,
+        "delta": null,
+        "ci95": [
+          null,
+          null
+        ],
+        "wins": 0,
+        "losses": 0,
+        "ties": 0,
+        "sign_test_p": null,
+        "per_task": {}
+      },
+      "verdict": "not run yet",
+      "eval_status_counts": {},
+      "spend_usd": 0,
+      "budget_usd": 16.5,
+      "train": {
+        "harness2_exit": null,
+        "tasks_finished": null,
+        "final_harness": null,
+        "final_changes": null
+      },
+      "updated": "2026-10-27T05:24:32+00:00",
+      "in_task": {
+        "n_tasks": 0,
+        "base_mean": null,
+        "adopted_mean": null
+      },
+      "pass_hat_k": {
+        "base": {
+          "1": null,
+          "2": null
+        },
+        "final": {
+          "1": null,
+          "2": null
+        }
+      }
+    },
+    {
+      "id": "e3-tau-airline",
+      "title": "\u03c4\u00b2-bench airline \u2014 customer service",
+      "question": "Does a harness that Harness\u00b2 refines on 3 airline conversations raise Claude Haiku 5.5's pass rate on the 20 held-out conversations of tau2's official airline test split?",
+      "metric": "tau2 reward per conversation (1 = the database ends exactly as the policy-correct resolution leaves it and required information was communicated, else 0)",
+      "models": {
+        "executor": "anthropic/claude-haiku-5-5",
+        "user": "anthropic/claude-haiku-5-5",
+        "improver": "anthropic/claude-sonnet-5-5"
+      },
+      "n_train_tasks": 3,
+      "n_test_tasks": 20,
+      "repeats": 3,
+      "transfer": {
+        "n_tasks": 0,
+        "base_mean": null,
+        "final_mean": null,
+        "delta": null,
+        "ci95": [
+          null,
+          null
+        ],
+        "wins": 0,
+        "losses": 0,
+        "ties": 0,
+        "sign_test_p": null,
+        "per_task": {}
+      },
+      "verdict": "not run yet",
+      "eval_status_counts": {},
+      "spend_usd": 0,
+      "budget_usd": 15.5,
+      "train": {
+        "harness2_exit": null,
+        "tasks_finished": null,
+        "final_harness": null,
+        "final_changes": null
+      },
+      "updated": "2026-10-27T05:24:32+00:00",
+      "in_task": {
+        "n_tasks": 0,
+        "base_mean": null,
+        "adopted_mean": null
+      },
+      "pass_hat_k": {
+        "base": {
+          "1": null,
+          "2": null,
+          "3": null
+        },
+        "final": {
+          "1": null,
+          "2": null,
+          "3": null
+        }
+      }
+    },
+    {
+      "id": "e4-terminal-bench",
+      "title": "Terminal-Bench 2.0 \u2014 terminal tasks in containers",
+      "question": "Does a Claude Code harness (CLAUDE.md, skills, scripts, hooks) that Harness\u00b2 refines on 3 Terminal-Bench 2.0 tasks raise Claude Haiku 5.5's pass rate on 12 different held-out tasks?",
+      "metric": "Harbor verifier reward (1 = the task's tests pass after the agent finishes, else 0)",
+      "models": {
+        "executor": "anthropic/claude-haiku-5-5",
+        "improver": "anthropic/claude-sonnet-5-5"
+      },
+      "n_train_tasks": 3,
+      "n_test_tasks": 12,
+      "repeats": 1,
+      "transfer": {
+        "n_tasks": 0,
+        "base_mean": null,
+        "final_mean": null,
+        "delta": null,
+        "ci95": [
+          null,
+          null
+        ],
+        "wins": 0,
+        "losses": 0,
+        "ties": 0,
+        "sign_test_p": null,
+        "per_task": {}
+      },
+      "verdict": "not run yet",
+      "eval_status_counts": {},
+      "spend_usd": 0,
+      "budget_usd": 22.0,
+      "train": {
+        "harness2_exit": null,
+        "tasks_finished": null,
+        "final_harness": null,
+        "final_changes": null
+      },
+      "updated": "2026-10-27T05:24:32+00:00",
+      "in_task": {
+        "n_tasks": 0,
+        "base_mean": null,
+        "adopted_mean": null
+      }
+    },
+    {
+      "id": "e5-swe-pro",
+      "title": "SWE-bench Pro (openlibrary) \u2014 repository issues",
+      "question": "Does a Claude Code harness that Harness\u00b2 refines on 3 openlibrary issues raise Claude Haiku 5.5's resolve rate on 10 other openlibrary issues, i.e. does repository knowledge learned by the harness transfer?",
+      "metric": "Harbor verifier reward (1 = the instance's fail-to-pass and pass-to-pass tests pass, else 0)",
+      "models": {
+        "executor": "anthropic/claude-haiku-5-5",
+        "improver": "anthropic/claude-sonnet-5-5"
+      },
+      "n_train_tasks": 3,
+      "n_test_tasks": 10,
+      "repeats": 1,
+      "transfer": {
+        "n_tasks": 0,
+        "base_mean": null,
+        "final_mean": null,
+        "delta": null,
+        "ci95": [
+          null,
+          null
+        ],
+        "wins": 0,
+        "losses": 0,
+        "ties": 0,
+        "sign_test_p": null,
+        "per_task": {}
+      },
+      "verdict": "not run yet",
+      "eval_status_counts": {},
+      "spend_usd": 0,
+      "budget_usd": 23.5,
+      "train": {
+        "harness2_exit": null,
+        "tasks_finished": null,
+        "final_harness": null,
+        "final_changes": null
+      },
+      "updated": "2026-10-27T05:24:32+00:00",
+      "in_task": {
+        "n_tasks": 0,
+        "base_mean": null,
+        "adopted_mean": null
+      }
+    }
+  ],
+  "updated": "2026-10-27T05:24:32+00:00"
+}

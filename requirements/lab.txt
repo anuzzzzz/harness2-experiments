@@ -1,0 +1,9 @@
+# Harvey LAB grading helpers (evaluation/scoring.py) need these; the harvey-labs source itself
+# is checked out at a pinned commit by scripts/fetch_lab.sh. pandoc comes from apt.
+anthropic>=0.69
+pandas>=2.0
+pdfplumber>=0.10
+openpyxl>=3.1
+markitdown>=0.1
+python-docx>=1.1
+python-pptx>=0.6.23

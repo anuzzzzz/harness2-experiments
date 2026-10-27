@@ -1,0 +1,38 @@
+{
+  "train": [
+    "11",
+    "28",
+    "33"
+  ],
+  "test": [
+    "2",
+    "6",
+    "8",
+    "13",
+    "16",
+    "18",
+    "19",
+    "22",
+    "24",
+    "25",
+    "26",
+    "29",
+    "30",
+    "31",
+    "32",
+    "35",
+    "37",
+    "44",
+    "45",
+    "48"
+  ],
+  "selection": {
+    "rule": "train: 3 tasks drawn (seeded shuffle) from tau2's official airline 'train' split (30 tasks); test: tau2's complete official airline 'test' split (20)",
+    "seed": 20261027,
+    "pool": {
+      "train": 30,
+      "test": 20
+    },
+    "source": "sierra-research/tau2-bench@989d3285ae669e49503324bdb9981bf14fccedeb (v2.0.0)"
+  }
+}

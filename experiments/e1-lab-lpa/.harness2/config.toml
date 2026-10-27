@@ -1,0 +1,35 @@
+# Harness² settings for e1-lab-lpa (pinned fork 3ae3ae/harness2-cli@0c81134).
+[suite]
+name = "h2x-lab"
+work = ""
+
+[paths]
+harness = "harness"
+tasks = ".harness2/tasks"
+
+[executor]
+# Harness2's own Claude Code executor in a files workspace (documents/ + output/).
+name = "claude"
+model = "anthropic/claude-haiku-5-5"
+bin = "claude --max-budget-usd 2"
+effort = "medium"
+timeout = 2400
+
+[improver]
+channel = "claude"
+model = "anthropic/claude-sonnet-5-5"
+# --max-budget-usd caps a single runaway session; the run-level cap is --budget-usd (h2x train).
+bin = "claude --max-budget-usd 3"
+effort = "high"
+timeout = 3600
+
+[reflector]
+effort = "medium"
+
+[run]
+k = 1
+modes = "parallel"
+workers = 1
+phase_width = 2
+proposer_concurrency = 2
+obs_trunc = 12000

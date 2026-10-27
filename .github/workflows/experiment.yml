@@ -1,0 +1,265 @@
+name: experiment
+# Runs one pre-registered experiment phase against the Anthropic API. Spends money.
+#   smoke  one real base-harness rollout of one train task (cents to ~$1): checks access/costs
+#   train  Harness2 on the train tasks -> final harness            (capped by budget.train_usd)
+#   eval   base vs final harness on the held-out test tasks         (capped by budget.eval_usd)
+#   report rebuild results/<exp>/summary + README table (free)
+#   all    train -> eval -> report
+# Every phase resumes: re-running it continues where the last run stopped.
+
+on:
+  workflow_dispatch:
+    inputs:
+      experiment:
+        description: Experiment
+        type: choice
+        options: [e3-tau-airline, e2-tau-banking, e1-lab-lpa, e4-terminal-bench, e5-swe-pro]
+        default: e3-tau-airline
+      phase:
+        description: Phase
+        type: choice
+        options: [smoke, train, eval, report, all]
+        default: smoke
+      confirm_spend:
+        description: I understand this uses the ANTHROPIC_API_KEY secret and spends up to the experiment budget
+        type: boolean
+        default: false
+  workflow_call:
+    inputs:
+      experiment: {type: string, required: true}
+      phase: {type: string, required: true}
+      confirm_spend: {type: boolean, required: true}
+    secrets:
+      ANTHROPIC_API_KEY: {required: false}
+      DOCKERHUB_USERNAME: {required: false}
+      DOCKERHUB_TOKEN: {required: false}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: h2x-${{ inputs.experiment }}
+  cancel-in-progress: false
+
+env:
+  EXP: ${{ inputs.experiment }}
+  PYTHONUNBUFFERED: "1"
+  HARBOR_TELEMETRY: "0"
+  DISABLE_AUTOUPDATER: "1"
+  CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC: "1"
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      family: ${{ steps.plan.outputs.family }}
+      shards: ${{ steps.plan.outputs.shards }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e . -q
+      - id: plan
+        run: |
+          h2x plan "$EXP"
+          suite=$(h2x plan "$EXP" --json | python -c 'import json,sys; print(json.load(sys.stdin)["suite"])')
+          case "$suite" in
+            h2x-tau) family=tau ;;
+            h2x-harbor) family=harbor ;;
+            h2x-lab) family=lab ;;
+            *) echo "::error::unknown suite $suite"; exit 1 ;;
+          esac
+          echo "family=$family" >> "$GITHUB_OUTPUT"
+          echo "shards=$(h2x matrix "$EXP")" >> "$GITHUB_OUTPUT"
+      - name: Guard spending
+        if: inputs.phase != 'report'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ "${{ inputs.confirm_spend }}" != "true" ]; then
+            echo "::error::Tick 'confirm_spend' to run a phase that calls the Anthropic API."; exit 1
+          fi
+          if [ -z "$ANTHROPIC_API_KEY" ]; then
+            echo "::error::Add an ANTHROPIC_API_KEY repository secret (Settings -> Secrets and variables -> Actions)."; exit 1
+          fi
+          phase="${{ inputs.phase }}"; [ "$phase" = "all" ] && phase=train
+          h2x budget-check "$EXP" "$phase"
+
+  smoke:
+    needs: prepare
+    if: inputs.phase == 'smoke'
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    env:
+      HAS_DOCKERHUB: ${{ secrets.DOCKERHUB_TOKEN != '' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+      - uses: ./.github/actions/setup
+        with:
+          family: ${{ needs.prepare.outputs.family }}
+          experiment: ${{ inputs.experiment }}
+      - uses: docker/login-action@v3
+        if: env.HAS_DOCKERHUB == 'true' && needs.prepare.outputs.family == 'harbor'
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - uses: actions/cache/restore@v4
+        with:
+          path: experiments/${{ inputs.experiment }}/.harness2/runs
+          key: h2x-state-${{ inputs.experiment }}-${{ github.run_id }}
+          restore-keys: h2x-state-${{ inputs.experiment }}-
+      - name: One real rollout (base harness), graded and priced
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: h2x smoke "$EXP"
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: experiments/${{ inputs.experiment }}/.harness2/runs
+          key: h2x-state-${{ inputs.experiment }}-${{ github.run_id }}-${{ github.run_attempt }}-smoke
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smoke-${{ inputs.experiment }}-${{ github.run_id }}
+          path: |
+            experiments/${{ inputs.experiment }}/.harness2/runs/main/rollouts/h2x-smoke*
+            experiments/${{ inputs.experiment }}/.harness2/runs/main/.h2x_hidden
+            results/${{ inputs.experiment }}
+          include-hidden-files: true
+          retention-days: 14
+      - name: Publish results
+        if: always()
+        run: |
+          bash scripts/publish_results.sh "$EXP" "results($EXP): smoke"
+
+  train:
+    needs: prepare
+    if: inputs.phase == 'train' || inputs.phase == 'all'
+    runs-on: ubuntu-latest
+    timeout-minutes: 358
+    env:
+      HAS_DOCKERHUB: ${{ secrets.DOCKERHUB_TOKEN != '' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+      - uses: ./.github/actions/setup
+        with:
+          family: ${{ needs.prepare.outputs.family }}
+          experiment: ${{ inputs.experiment }}
+      - uses: docker/login-action@v3
+        if: env.HAS_DOCKERHUB == 'true' && needs.prepare.outputs.family == 'harbor'
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - uses: actions/cache/restore@v4
+        with:
+          path: experiments/${{ inputs.experiment }}/.harness2/runs
+          key: h2x-state-${{ inputs.experiment }}-${{ github.run_id }}
+          restore-keys: h2x-state-${{ inputs.experiment }}-
+      - name: Harness2 on the train tasks (resumable, stops itself before the 6 h job limit)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: h2x train "$EXP" --soft-min 290 --hard-min 340
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: experiments/${{ inputs.experiment }}/.harness2/runs
+          key: h2x-state-${{ inputs.experiment }}-${{ github.run_id }}-${{ github.run_attempt }}-train
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: train-state-${{ inputs.experiment }}-${{ github.run_id }}
+          path: experiments/${{ inputs.experiment }}/.harness2/runs/main
+          include-hidden-files: true
+          retention-days: 30
+      - name: Publish results
+        if: always()
+        run: |
+          h2x report "$EXP" || true
+          bash scripts/publish_results.sh "$EXP" "results($EXP): train"
+
+  eval:
+    needs: [prepare, train]
+    if: >-
+      always() && needs.prepare.result == 'success' &&
+      (inputs.phase == 'eval' || (inputs.phase == 'all' && needs.train.result == 'success'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix:
+        shard: ${{ fromJSON(needs.prepare.outputs.shards) }}
+    env:
+      HAS_DOCKERHUB: ${{ secrets.DOCKERHUB_TOKEN != '' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+      - uses: ./.github/actions/setup
+        with:
+          family: ${{ needs.prepare.outputs.family }}
+          experiment: ${{ inputs.experiment }}
+      - uses: docker/login-action@v3
+        if: env.HAS_DOCKERHUB == 'true' && needs.prepare.outputs.family == 'harbor'
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - uses: actions/cache/restore@v4
+        with:
+          path: experiments/${{ inputs.experiment }}/.harness2/runs
+          key: h2x-state-${{ inputs.experiment }}-${{ github.run_id }}
+          restore-keys: h2x-state-${{ inputs.experiment }}-
+      - name: Base vs final harness on this shard of the test tasks
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: h2x eval "$EXP" --shard ${{ matrix.shard }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: eval-shard-${{ inputs.experiment }}-${{ matrix.shard }}
+          path: results/${{ inputs.experiment }}/eval/shard-${{ matrix.shard }}.json
+          retention-days: 30
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: eval-rollouts-${{ inputs.experiment }}-${{ matrix.shard }}-${{ github.run_id }}
+          path: |
+            experiments/${{ inputs.experiment }}/.harness2/runs/main/rollouts/h2x-eval*
+            experiments/${{ inputs.experiment }}/.harness2/runs/main/.h2x_hidden
+          include-hidden-files: true
+          retention-days: 14
+
+  report:
+    needs: [prepare, eval]
+    if: >-
+      always() && needs.prepare.result == 'success' &&
+      (inputs.phase == 'eval' || inputs.phase == 'all' || inputs.phase == 'report')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e . -q
+      - uses: actions/download-artifact@v4
+        if: inputs.phase != 'report'
+        with:
+          pattern: eval-shard-${{ inputs.experiment }}-*
+          path: results/${{ inputs.experiment }}/eval
+          merge-multiple: true
+      - run: h2x report "$EXP"
+      - run: cat "results/$EXP/README.md" >> "$GITHUB_STEP_SUMMARY"
+      - name: Publish results
+        run: |
+          bash scripts/publish_results.sh "$EXP" "results($EXP): ${{ inputs.phase }}"

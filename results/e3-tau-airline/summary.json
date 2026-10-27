@@ -1,0 +1,57 @@
+{
+  "id": "e3-tau-airline",
+  "title": "\u03c4\u00b2-bench airline \u2014 customer service",
+  "question": "Does a harness that Harness\u00b2 refines on 3 airline conversations raise Claude Haiku 5.5's pass rate on the 20 held-out conversations of tau2's official airline test split?",
+  "metric": "tau2 reward per conversation (1 = the database ends exactly as the policy-correct resolution leaves it and required information was communicated, else 0)",
+  "models": {
+    "executor": "anthropic/claude-haiku-5-5",
+    "user": "anthropic/claude-haiku-5-5",
+    "improver": "anthropic/claude-sonnet-5-5"
+  },
+  "n_train_tasks": 3,
+  "n_test_tasks": 20,
+  "repeats": 3,
+  "transfer": {
+    "n_tasks": 0,
+    "base_mean": null,
+    "final_mean": null,
+    "delta": null,
+    "ci95": [
+      null,
+      null
+    ],
+    "wins": 0,
+    "losses": 0,
+    "ties": 0,
+    "sign_test_p": null,
+    "per_task": {}
+  },
+  "verdict": "not run yet",
+  "eval_status_counts": {},
+  "spend_usd": 0,
+  "budget_usd": 15.5,
+  "train": {
+    "harness2_exit": null,
+    "tasks_finished": null,
+    "final_harness": null,
+    "final_changes": null
+  },
+  "updated": "2026-10-27T05:24:32+00:00",
+  "in_task": {
+    "n_tasks": 0,
+    "base_mean": null,
+    "adopted_mean": null
+  },
+  "pass_hat_k": {
+    "base": {
+      "1": null,
+      "2": null,
+      "3": null
+    },
+    "final": {
+      "1": null,
+      "2": null,
+      "3": null
+    }
+  }
+}

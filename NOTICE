@@ -1,0 +1,22 @@
+harness2-experiments
+Copyright 2026 the harness2-experiments contributors. Licensed under the Apache License 2.0.
+
+This repository runs, but does not redistribute, the following software and data. Each is
+fetched at a pinned commit when an experiment runs and keeps its own license.
+
+* Harness2 CLI (fork of google-research/harness2) -- Apache-2.0
+  https://github.com/3ae3ae/harness2-cli @ 0c811344a4edfe34960b2fc8f286369d7e81fb27
+  The legal-practice prompt text in h2x/suites/lab.py is adapted from that project's
+  plugins/harness2-benchmarks/harness2_benchmarks/lab.py (Copyright 2026 Google LLC).
+* tau2-bench / tau-bench v2.0.0 -- MIT (Sierra Research)
+  https://github.com/sierra-research/tau2-bench @ 989d3285ae669e49503324bdb9981bf14fccedeb
+* Harbor -- Apache-2.0 (Laude Institute)
+  https://github.com/laude-institute/harbor @ e77a18bfeed53f907f335b9132d87006e01b3dfd
+* Terminal-Bench 2.0 tasks -- https://github.com/laude-institute/terminal-bench-2
+  @ 69671fbaac6d67a7ef0dfec016cc38a64ef7a77c
+* SWE-bench Pro (public set, Scale AI) via Harbor datasets
+  https://github.com/laude-institute/harbor-datasets @ c8e8f3fac7097accaacf261d74c3d6f441de45b1
+* Harvey LAB -- MIT (Harvey AI)
+  https://github.com/harveyai/harvey-labs @ b58a28ae9fde5ee4b810e53b4fd0a1915325a35d
+
+experiments/*/tasks.lock.json list only task identifiers and source locations.

@@ -1,0 +1,4 @@
+# tau2-bench v2.0.0 (MIT) is installed editable from a sparse checkout made by scripts/fetch_tau2.sh,
+# because its data directory must sit next to the source:
+#   pip install -e "vendor/tau2-bench[knowledge]"
+# Pinned commit: sierra-research/tau2-bench@989d3285ae669e49503324bdb9981bf14fccedeb (tag v2.0.0)

@@ -1,0 +1,144 @@
+{
+  "train": [
+    "db-wal-recovery",
+    "git-multibranch",
+    "sanitize-git-repo"
+  ],
+  "test": [
+    "break-filter-js-from-html",
+    "build-cython-ext",
+    "chess-best-move",
+    "constraints-scheduling",
+    "crack-7z-hash",
+    "git-leak-recovery",
+    "headless-terminal",
+    "large-scale-text-editing",
+    "modernize-scientific-stack",
+    "nginx-request-logging",
+    "regex-log",
+    "sqlite-with-gcov"
+  ],
+  "sources": {
+    "break-filter-js-from-html": {
+      "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+      "commit": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+      "path": "break-filter-js-from-html"
+    },
+    "build-cython-ext": {
+      "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+      "commit": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+      "path": "build-cython-ext"
+    },
+    "chess-best-move": {
+      "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+      "commit": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+      "path": "chess-best-move"
+    },
+    "constraints-scheduling": {
+      "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+      "commit": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+      "path": "constraints-scheduling"
+    },
+    "crack-7z-hash": {
+      "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+      "commit": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+      "path": "crack-7z-hash"
+    },
+    "db-wal-recovery": {
+      "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+      "commit": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+      "path": "db-wal-recovery"
+    },
+    "git-leak-recovery": {
+      "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+      "commit": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+      "path": "git-leak-recovery"
+    },
+    "git-multibranch": {
+      "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+      "commit": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+      "path": "git-multibranch"
+    },
+    "headless-terminal": {
+      "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+      "commit": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+      "path": "headless-terminal"
+    },
+    "large-scale-text-editing": {
+      "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+      "commit": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+      "path": "large-scale-text-editing"
+    },
+    "modernize-scientific-stack": {
+      "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+      "commit": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+      "path": "modernize-scientific-stack"
+    },
+    "nginx-request-logging": {
+      "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+      "commit": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+      "path": "nginx-request-logging"
+    },
+    "regex-log": {
+      "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+      "commit": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+      "path": "regex-log"
+    },
+    "sanitize-git-repo": {
+      "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+      "commit": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+      "path": "sanitize-git-repo"
+    },
+    "sqlite-with-gcov": {
+      "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+      "commit": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+      "path": "sqlite-with-gcov"
+    }
+  },
+  "selection": {
+    "rule": "Terminal-Bench 2.0 tasks with difficulty easy|medium, agent timeout <= 1200 s, <= 2 CPUs and <= 4 GB, excluding model-training/machine-learning categories and tasks dominated by large downloads or VMs; seeded shuffle: 3 train, 12 test",
+    "seed": 20261027,
+    "pool": 38,
+    "pool_tasks": [
+      "adaptive-rejection-sampler",
+      "break-filter-js-from-html",
+      "build-cython-ext",
+      "build-pmars",
+      "chess-best-move",
+      "cobol-modernization",
+      "code-from-image",
+      "constraints-scheduling",
+      "crack-7z-hash",
+      "db-wal-recovery",
+      "extract-elf",
+      "financial-document-processor",
+      "fix-git",
+      "gcode-to-text",
+      "git-leak-recovery",
+      "git-multibranch",
+      "headless-terminal",
+      "kv-store-grpc",
+      "large-scale-text-editing",
+      "largest-eigenval",
+      "log-summary-date-ranges",
+      "merge-diff-arc-agi-task",
+      "modernize-scientific-stack",
+      "multi-source-data-merger",
+      "nginx-request-logging",
+      "openssl-selfsigned-cert",
+      "overfull-hbox",
+      "polyglot-c-py",
+      "prove-plus-comm",
+      "pypi-server",
+      "query-optimize",
+      "raman-fitting",
+      "regex-log",
+      "sanitize-git-repo",
+      "sqlite-db-truncate",
+      "sqlite-with-gcov",
+      "tune-mjcf",
+      "vulnerable-secret"
+    ],
+    "source": "laude-institute/terminal-bench-2@69671fbaac6d67a7ef0dfec016cc38a64ef7a77c"
+  }
+}

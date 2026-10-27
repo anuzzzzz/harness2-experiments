@@ -1,0 +1,44 @@
+{
+  "id": "e5-swe-pro",
+  "title": "SWE-bench Pro (openlibrary) \u2014 repository issues",
+  "question": "Does a Claude Code harness that Harness\u00b2 refines on 3 openlibrary issues raise Claude Haiku 5.5's resolve rate on 10 other openlibrary issues, i.e. does repository knowledge learned by the harness transfer?",
+  "metric": "Harbor verifier reward (1 = the instance's fail-to-pass and pass-to-pass tests pass, else 0)",
+  "models": {
+    "executor": "anthropic/claude-haiku-5-5",
+    "improver": "anthropic/claude-sonnet-5-5"
+  },
+  "n_train_tasks": 3,
+  "n_test_tasks": 10,
+  "repeats": 1,
+  "transfer": {
+    "n_tasks": 0,
+    "base_mean": null,
+    "final_mean": null,
+    "delta": null,
+    "ci95": [
+      null,
+      null
+    ],
+    "wins": 0,
+    "losses": 0,
+    "ties": 0,
+    "sign_test_p": null,
+    "per_task": {}
+  },
+  "verdict": "not run yet",
+  "eval_status_counts": {},
+  "spend_usd": 0,
+  "budget_usd": 23.5,
+  "train": {
+    "harness2_exit": null,
+    "tasks_finished": null,
+    "final_harness": null,
+    "final_changes": null
+  },
+  "updated": "2026-10-27T05:24:32+00:00",
+  "in_task": {
+    "n_tasks": 0,
+    "base_mean": null,
+    "adopted_mean": null
+  }
+}

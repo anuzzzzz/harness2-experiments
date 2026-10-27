@@ -1,0 +1,55 @@
+{
+  "id": "e2-tau-banking",
+  "title": "\u03c4\u00b3-bench banking_knowledge \u2014 customer service over a knowledge base",
+  "question": "Does a harness that Harness\u00b2 refines on 3 banking conversations raise Claude Haiku 5.5's pass rate on 24 held-out conversations, where answers depend on a 698-document knowledge base searched with BM25?",
+  "metric": "tau2 reward per conversation (1 = the database ends in the expected state, else 0)",
+  "models": {
+    "executor": "anthropic/claude-haiku-5-5",
+    "user": "anthropic/claude-haiku-5-5",
+    "improver": "anthropic/claude-sonnet-5-5"
+  },
+  "n_train_tasks": 3,
+  "n_test_tasks": 24,
+  "repeats": 2,
+  "transfer": {
+    "n_tasks": 0,
+    "base_mean": null,
+    "final_mean": null,
+    "delta": null,
+    "ci95": [
+      null,
+      null
+    ],
+    "wins": 0,
+    "losses": 0,
+    "ties": 0,
+    "sign_test_p": null,
+    "per_task": {}
+  },
+  "verdict": "not run yet",
+  "eval_status_counts": {},
+  "spend_usd": 0,
+  "budget_usd": 16.5,
+  "train": {
+    "harness2_exit": null,
+    "tasks_finished": null,
+    "final_harness": null,
+    "final_changes": null
+  },
+  "updated": "2026-10-27T05:24:32+00:00",
+  "in_task": {
+    "n_tasks": 0,
+    "base_mean": null,
+    "adopted_mean": null
+  },
+  "pass_hat_k": {
+    "base": {
+      "1": null,
+      "2": null
+    },
+    "final": {
+      "1": null,
+      "2": null
+    }
+  }
+}

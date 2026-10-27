@@ -1,0 +1,52 @@
+#!/usr/bin/env python3
+"""A stand-in for the `claude` CLI used by offline plumbing tests. Never calls a model.
+
+Improver mode (`--output-format json`): edits context/harness/ (adds a 'verify' rule to
+AGENT.md or CLAUDE.md), replies with <notes> and an <experience> block, prints Claude Code's
+JSON result object.
+Executor mode (`--output-format stream-json`): writes every `Output: name.ext` file named in the
+prompt into output/, prints a stream-json transcript with a result event.
+"""
+
+import json
+import re
+import sys
+from pathlib import Path
+
+argv = sys.argv[1:]
+fmt = argv[argv.index("--output-format") + 1] if "--output-format" in argv else "text"
+prompt = sys.stdin.read()
+cwd = Path.cwd()
+
+if fmt == "stream-json":
+    out = cwd / "output"
+    out.mkdir(exist_ok=True)
+    names = re.findall(r"`([\w.\-]+\.(?:docx|md|xlsx|txt))`", prompt) or ["result.md"]
+    for name in names:
+        (out / name).write_text("fake deliverable\n" + ("verified\n" if (cwd / "CLAUDE.md").is_file() and "verify" in (cwd / "CLAUDE.md").read_text().lower() else ""))
+    events = [
+        {"type": "system", "subtype": "init", "model": "fake", "cwd": str(cwd)},
+        {"type": "assistant", "message": {"id": "m1", "content": [
+            {"type": "tool_use", "id": "t1", "name": "Bash", "input": {"command": "ls documents"}}],
+            "usage": {"input_tokens": 100, "output_tokens": 10}}},
+        {"type": "user", "message": {"content": [
+            {"type": "tool_result", "tool_use_id": "t1", "content": "a.docx"}]}},
+        {"type": "result", "subtype": "success", "is_error": False,
+         "result": f"wrote {', '.join(names)}", "total_cost_usd": 0.003},
+    ]
+    print("\n".join(json.dumps(e) for e in events))
+    sys.exit(0)
+
+harness = cwd / "context" / "harness"
+if harness.is_dir():
+    target = harness / ("CLAUDE.md" if (harness / "CLAUDE.md").exists() else "AGENT.md")
+    text = target.read_text() if target.exists() else ""
+    if "verify" not in text.lower():
+        target.write_text(text.rstrip() + "\nBefore acting, verify the record with a tool.\n")
+reply = (
+    "<notes>Added a verification rule (fake improver).</notes>\n"
+    "<experience>\ncue: before any change\nlesson: verify the record first\n"
+    "evidence: fake run\nconfidence: low\n</experience>"
+)
+print(json.dumps({"type": "result", "subtype": "success", "is_error": False,
+                  "result": reply, "total_cost_usd": 0.01}))

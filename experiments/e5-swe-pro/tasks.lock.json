@@ -1,0 +1,92 @@
+{
+  "train": [
+    "instance_internetarchive__openlibrary-6afdb09df692223c3a31df65cfa92f15e5614c01-v08d8e8889ec945ab821fb156c04c7d2e2810debb",
+    "instance_internetarchive__openlibrary-c05ccf2cd8baa81609434e0e35c4a63bc0da5a25-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4",
+    "instance_internetarchive__openlibrary-f3b26c2c0721f8713353fe4b341230332e30008d-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4"
+  ],
+  "test": [
+    "instance_internetarchive__openlibrary-0d13e6b4bf80bced6c0946b969b9a1b6963f6bce-v76304ecdb3a5954fcf13feb710e8c40fcf24b73c",
+    "instance_internetarchive__openlibrary-3c48b4bb782189e0858e6c3fc7956046cf3e1cfb-v2d9a6c849c60ed19fd0858ce9e40b7cc8e097e59",
+    "instance_internetarchive__openlibrary-3f580a5f244c299d936d73d9e327ba873b6401d9-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4",
+    "instance_internetarchive__openlibrary-431442c92887a3aece3f8aa771dd029738a80eb1-v76304ecdb3a5954fcf13feb710e8c40fcf24b73c",
+    "instance_internetarchive__openlibrary-9cd47f4dc21e273320d9e30d889c864f8cb20ccf-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4",
+    "instance_internetarchive__openlibrary-b4f7c185ae5f1824ac7f3a18e8adf6a4b468459c-v08d8e8889ec945ab821fb156c04c7d2e2810debb",
+    "instance_internetarchive__openlibrary-ba3abfb6af6e722185d3715929ab0f3e5a134eed-v76304ecdb3a5954fcf13feb710e8c40fcf24b73c",
+    "instance_internetarchive__openlibrary-c12943be1db80cf1114bc267ddf4f9933aca9b28-v2c55207218fb8a0138425cbf7d9675272e240b90",
+    "instance_internetarchive__openlibrary-f343c08f89c772f7ba6c0246f384b9e6c3dc0add-v08d8e8889ec945ab821fb156c04c7d2e2810debb",
+    "instance_internetarchive__openlibrary-fad4a40acf5ff5f06cd7441a5c7baf41a7d81fe4-vfa6ff903cb27f336e17654595dd900fa943dcd91"
+  ],
+  "sources": {
+    "instance_internetarchive__openlibrary-0d13e6b4bf80bced6c0946b969b9a1b6963f6bce-v76304ecdb3a5954fcf13feb710e8c40fcf24b73c": {
+      "git_url": "https://github.com/laude-institute/harbor-datasets.git",
+      "commit": "c8e8f3fac7097accaacf261d74c3d6f441de45b1",
+      "path": "datasets/swebenchpro/instance_internetarchive__openlibrary-0d13e6b4bf80bced6c0946b969b9a1b6963f6bce-v76304ecdb3a5954fcf13feb710e8c40fcf24b73c"
+    },
+    "instance_internetarchive__openlibrary-3c48b4bb782189e0858e6c3fc7956046cf3e1cfb-v2d9a6c849c60ed19fd0858ce9e40b7cc8e097e59": {
+      "git_url": "https://github.com/laude-institute/harbor-datasets.git",
+      "commit": "c8e8f3fac7097accaacf261d74c3d6f441de45b1",
+      "path": "datasets/swebenchpro/instance_internetarchive__openlibrary-3c48b4bb782189e0858e6c3fc7956046cf3e1cfb-v2d9a6c849c60ed19fd0858ce9e40b7cc8e097e59"
+    },
+    "instance_internetarchive__openlibrary-3f580a5f244c299d936d73d9e327ba873b6401d9-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4": {
+      "git_url": "https://github.com/laude-institute/harbor-datasets.git",
+      "commit": "c8e8f3fac7097accaacf261d74c3d6f441de45b1",
+      "path": "datasets/swebenchpro/instance_internetarchive__openlibrary-3f580a5f244c299d936d73d9e327ba873b6401d9-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4"
+    },
+    "instance_internetarchive__openlibrary-431442c92887a3aece3f8aa771dd029738a80eb1-v76304ecdb3a5954fcf13feb710e8c40fcf24b73c": {
+      "git_url": "https://github.com/laude-institute/harbor-datasets.git",
+      "commit": "c8e8f3fac7097accaacf261d74c3d6f441de45b1",
+      "path": "datasets/swebenchpro/instance_internetarchive__openlibrary-431442c92887a3aece3f8aa771dd029738a80eb1-v76304ecdb3a5954fcf13feb710e8c40fcf24b73c"
+    },
+    "instance_internetarchive__openlibrary-6afdb09df692223c3a31df65cfa92f15e5614c01-v08d8e8889ec945ab821fb156c04c7d2e2810debb": {
+      "git_url": "https://github.com/laude-institute/harbor-datasets.git",
+      "commit": "c8e8f3fac7097accaacf261d74c3d6f441de45b1",
+      "path": "datasets/swebenchpro/instance_internetarchive__openlibrary-6afdb09df692223c3a31df65cfa92f15e5614c01-v08d8e8889ec945ab821fb156c04c7d2e2810debb"
+    },
+    "instance_internetarchive__openlibrary-9cd47f4dc21e273320d9e30d889c864f8cb20ccf-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4": {
+      "git_url": "https://github.com/laude-institute/harbor-datasets.git",
+      "commit": "c8e8f3fac7097accaacf261d74c3d6f441de45b1",
+      "path": "datasets/swebenchpro/instance_internetarchive__openlibrary-9cd47f4dc21e273320d9e30d889c864f8cb20ccf-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4"
+    },
+    "instance_internetarchive__openlibrary-b4f7c185ae5f1824ac7f3a18e8adf6a4b468459c-v08d8e8889ec945ab821fb156c04c7d2e2810debb": {
+      "git_url": "https://github.com/laude-institute/harbor-datasets.git",
+      "commit": "c8e8f3fac7097accaacf261d74c3d6f441de45b1",
+      "path": "datasets/swebenchpro/instance_internetarchive__openlibrary-b4f7c185ae5f1824ac7f3a18e8adf6a4b468459c-v08d8e8889ec945ab821fb156c04c7d2e2810debb"
+    },
+    "instance_internetarchive__openlibrary-ba3abfb6af6e722185d3715929ab0f3e5a134eed-v76304ecdb3a5954fcf13feb710e8c40fcf24b73c": {
+      "git_url": "https://github.com/laude-institute/harbor-datasets.git",
+      "commit": "c8e8f3fac7097accaacf261d74c3d6f441de45b1",
+      "path": "datasets/swebenchpro/instance_internetarchive__openlibrary-ba3abfb6af6e722185d3715929ab0f3e5a134eed-v76304ecdb3a5954fcf13feb710e8c40fcf24b73c"
+    },
+    "instance_internetarchive__openlibrary-c05ccf2cd8baa81609434e0e35c4a63bc0da5a25-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4": {
+      "git_url": "https://github.com/laude-institute/harbor-datasets.git",
+      "commit": "c8e8f3fac7097accaacf261d74c3d6f441de45b1",
+      "path": "datasets/swebenchpro/instance_internetarchive__openlibrary-c05ccf2cd8baa81609434e0e35c4a63bc0da5a25-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4"
+    },
+    "instance_internetarchive__openlibrary-c12943be1db80cf1114bc267ddf4f9933aca9b28-v2c55207218fb8a0138425cbf7d9675272e240b90": {
+      "git_url": "https://github.com/laude-institute/harbor-datasets.git",
+      "commit": "c8e8f3fac7097accaacf261d74c3d6f441de45b1",
+      "path": "datasets/swebenchpro/instance_internetarchive__openlibrary-c12943be1db80cf1114bc267ddf4f9933aca9b28-v2c55207218fb8a0138425cbf7d9675272e240b90"
+    },
+    "instance_internetarchive__openlibrary-f343c08f89c772f7ba6c0246f384b9e6c3dc0add-v08d8e8889ec945ab821fb156c04c7d2e2810debb": {
+      "git_url": "https://github.com/laude-institute/harbor-datasets.git",
+      "commit": "c8e8f3fac7097accaacf261d74c3d6f441de45b1",
+      "path": "datasets/swebenchpro/instance_internetarchive__openlibrary-f343c08f89c772f7ba6c0246f384b9e6c3dc0add-v08d8e8889ec945ab821fb156c04c7d2e2810debb"
+    },
+    "instance_internetarchive__openlibrary-f3b26c2c0721f8713353fe4b341230332e30008d-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4": {
+      "git_url": "https://github.com/laude-institute/harbor-datasets.git",
+      "commit": "c8e8f3fac7097accaacf261d74c3d6f441de45b1",
+      "path": "datasets/swebenchpro/instance_internetarchive__openlibrary-f3b26c2c0721f8713353fe4b341230332e30008d-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4"
+    },
+    "instance_internetarchive__openlibrary-fad4a40acf5ff5f06cd7441a5c7baf41a7d81fe4-vfa6ff903cb27f336e17654595dd900fa943dcd91": {
+      "git_url": "https://github.com/laude-institute/harbor-datasets.git",
+      "commit": "c8e8f3fac7097accaacf261d74c3d6f441de45b1",
+      "path": "datasets/swebenchpro/instance_internetarchive__openlibrary-fad4a40acf5ff5f06cd7441a5c7baf41a7d81fe4-vfa6ff903cb27f336e17654595dd900fa943dcd91"
+    }
+  },
+  "selection": {
+    "rule": "SWE-bench Pro (public, via Harbor) instances from internetarchive/openlibrary whose reference patch changes <= 80 lines in <= 3 files (mid-sized issues); seeded shuffle: 3 train, 10 test. One repository on purpose: a harness can carry repository knowledge from train issues to new ones.",
+    "seed": 20261027,
+    "pool": 35,
+    "source": "laude-institute/harbor-datasets@c8e8f3fac7097accaacf261d74c3d6f441de45b1"
+  }
+}

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Harness² experiments</title>
+<style>
+  :root {
+    --bg: #fbfaf8; --panel: #ffffff; --ink: #1d1b19; --muted: #6b665f; --line: #e6e2dc;
+    --base: #9a948c; --final: #2f6fdf; --good: #1f8a4c; --bad: #c4372f; --flat: #8a6d1f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #151413; --panel: #1e1c1a; --ink: #eeeae4; --muted: #a39d94; --line: #34312d;
+            --base: #7d776f; --final: #6f9ef5; --good: #46b779; --bad: #ef6b62; --flat: #d1aa4d; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 15px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 980px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 26px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .lede { color: var(--muted); margin: 0 0 28px; max-width: 70ch; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+          padding: 18px 20px; margin-bottom: 14px; }
+  .head { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+  .head h2 { font-size: 17px; margin: 0; }
+  .head h2 a { color: inherit; text-decoration: none; }
+  .head h2 a:hover { text-decoration: underline; }
+  .badge { font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 999px;
+           border: 1px solid currentColor; white-space: nowrap; }
+  .improved { color: var(--good); } .worse { color: var(--bad); }
+  .flat { color: var(--flat); } .pending { color: var(--muted); }
+  .q { color: var(--muted); margin: 6px 0 14px; font-size: 14px; }
+  .bars { display: grid; grid-template-columns: 72px 1fr 64px; gap: 6px 10px; align-items: center; }
+  .label { font-size: 13px; color: var(--muted); }
+  .track { position: relative; height: 14px; background: var(--line); border-radius: 7px; overflow: hidden; }
+  .fill { position: absolute; inset: 0 auto 0 0; border-radius: 7px; }
+  .val { font-variant-numeric: tabular-nums; font-size: 13px; text-align: right; }
+  .meta { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 12px; font-size: 13px; color: var(--muted); }
+  .meta b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .empty { color: var(--muted); }
+  footer { color: var(--muted); font-size: 13px; margin-top: 24px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Harness² experiments</h1>
+  <p class="lede">Five pre-registered tests of one question: when Harness² refines an agent's harness on a
+    few tasks, does the same frozen model do better on <em>held-out</em> tasks? Bars show the starting
+    harness (grey) and the harness Harness² produced (blue) on the same test tasks.</p>
+  <div id="cards"><p class="empty">Loading results…</p></div>
+  <footer id="foot"></footer>
+</main>
+<script>
+const onPages = location.hostname.endsWith(".github.io");
+const repoUrl = onPages
+  ? `https://github.com/${location.hostname.split(".")[0]}/${location.pathname.split("/")[1]}/blob/main`
+  : "..";
+const pct = x => x == null ? "–" : (100 * x).toFixed(1) + "%";
+const pts = x => x == null ? "–" : (x >= 0 ? "+" : "") + (100 * x).toFixed(1);
+const cls = v => ({"improved": "improved", "worse": "worse", "no clear difference": "flat"}[v] || "pending");
+function bar(label, value, color) {
+  const w = value == null ? 0 : Math.max(0, Math.min(1, value)) * 100;
+  return `<div class="label">${label}</div>
+    <div class="track"><div class="fill" style="width:${w}%;background:${color}"></div></div>
+    <div class="val">${pct(value)}</div>`;
+}
+function card(s) {
+  const t = s.transfer || {};
+  const ci = t.delta == null ? "–" : `${pts(t.delta)} pts (95% CI ${pts(t.ci95[0])} to ${pts(t.ci95[1])})`;
+  const el = document.createElement("section");
+  el.className = "card";
+  el.innerHTML = `
+    <div class="head"><h2><a href="${repoUrl}/results/${s.id}/README.md">${s.title}</a></h2>
+      <span class="badge ${cls(s.verdict)}">${s.verdict}</span></div>
+    <p class="q">${s.question || ""}</p>
+    <div class="bars">${bar("base", t.base_mean, "var(--base)")}${bar("Harness²", t.final_mean, "var(--final)")}</div>
+    <div class="meta">
+      <span>Δ <b>${ci}</b></span>
+      <span>held-out tasks <b>${t.n_tasks || 0}×${s.repeats}</b></span>
+      <span>better / worse / same <b>${t.wins ?? 0} / ${t.losses ?? 0} / ${t.ties ?? 0}</b></span>
+      <span>spend <b>$${(s.spend_usd || 0).toFixed(2)} / $${s.budget_usd}</b></span>
+    </div>`;
+  return el;
+}
+fetch("data/summary.json", {cache: "no-store"})
+  .then(r => r.ok ? r.json() : Promise.reject(r.status))
+  .then(data => {
+    const root = document.getElementById("cards");
+    root.innerHTML = "";
+    (data.experiments || []).forEach(s => root.appendChild(card(s)));
+    if (!(data.experiments || []).length) root.innerHTML = '<p class="empty">No results yet.</p>';
+    document.getElementById("foot").textContent = data.updated ? `Updated ${data.updated}` : "";
+  })
+  .catch(() => {
+    document.getElementById("cards").innerHTML =
+      '<p class="empty">No results published yet. Run a phase of the <code>experiment</code> workflow.</p>';
+  });
+</script>
+</body>
+</html>

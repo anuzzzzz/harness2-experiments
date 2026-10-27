@@ -1,0 +1,44 @@
+{
+  "id": "e4-terminal-bench",
+  "title": "Terminal-Bench 2.0 \u2014 terminal tasks in containers",
+  "question": "Does a Claude Code harness (CLAUDE.md, skills, scripts, hooks) that Harness\u00b2 refines on 3 Terminal-Bench 2.0 tasks raise Claude Haiku 5.5's pass rate on 12 different held-out tasks?",
+  "metric": "Harbor verifier reward (1 = the task's tests pass after the agent finishes, else 0)",
+  "models": {
+    "executor": "anthropic/claude-haiku-5-5",
+    "improver": "anthropic/claude-sonnet-5-5"
+  },
+  "n_train_tasks": 3,
+  "n_test_tasks": 12,
+  "repeats": 1,
+  "transfer": {
+    "n_tasks": 0,
+    "base_mean": null,
+    "final_mean": null,
+    "delta": null,
+    "ci95": [
+      null,
+      null
+    ],
+    "wins": 0,
+    "losses": 0,
+    "ties": 0,
+    "sign_test_p": null,
+    "per_task": {}
+  },
+  "verdict": "not run yet",
+  "eval_status_counts": {},
+  "spend_usd": 0,
+  "budget_usd": 22.0,
+  "train": {
+    "harness2_exit": null,
+    "tasks_finished": null,
+    "final_harness": null,
+    "final_changes": null
+  },
+  "updated": "2026-10-27T05:24:32+00:00",
+  "in_task": {
+    "n_tasks": 0,
+    "base_mean": null,
+    "adopted_mean": null
+  }
+}

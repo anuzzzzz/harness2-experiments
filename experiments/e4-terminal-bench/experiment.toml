@@ -1,0 +1,34 @@
+id = "e4-terminal-bench"
+title = "Terminal-Bench 2.0 — terminal tasks in containers"
+question = "Does a Claude Code harness (CLAUDE.md, skills, scripts, hooks) that Harness² refines on 3 Terminal-Bench 2.0 tasks raise Claude Haiku 5.5's pass rate on 12 different held-out tasks?"
+suite = "h2x-harbor"
+domain = "terminal"
+metric = "Harbor verifier reward (1 = the task's tests pass after the agent finishes, else 0)"
+
+[models]
+executor = "anthropic/claude-haiku-5-5"
+improver = "anthropic/claude-sonnet-5-5"
+
+[budget]
+total_usd = 22.0
+train_usd = 13.0
+eval_usd = 8.5
+smoke_usd = 0.5
+
+[eval]
+repeats = 1
+shards = 6
+concurrency = 2
+
+[harbor]
+kind = "terminal"
+max_budget_usd = 1.0               # per-rollout ceiling passed to Claude Code (--max-budget-usd)
+agent_timeout_multiplier = 1.0
+retries = 1
+
+[estimate]
+# per-unit guesses used only by `h2x plan`; the [budget] caps are what bind
+rollout_usd = 0.35
+improver_session_usd = 0.75
+reflector_session_usd = 0.25
+consolidation_usd = 1.0

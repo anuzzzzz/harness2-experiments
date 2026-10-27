@@ -1,0 +1,2 @@
+# Harness2 CLI fork with Anthropic API support (Apache-2.0), pinned.
+harness2-cli @ git+https://github.com/3ae3ae/harness2-cli@0c811344a4edfe34960b2fc8f286369d7e81fb27

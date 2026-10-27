@@ -1,0 +1,55 @@
+{
+  "train": [
+    "lpa-02",
+    "lpa-06",
+    "lpa-10"
+  ],
+  "test": [
+    "lpa-01",
+    "lpa-03",
+    "lpa-05",
+    "lpa-07",
+    "lpa-09",
+    "lpa-11"
+  ],
+  "lab_paths": {
+    "lpa-01": "funds-asset-management/draft-lpa/scenario-01",
+    "lpa-02": "funds-asset-management/draft-lpa/scenario-02",
+    "lpa-03": "funds-asset-management/draft-lpa/scenario-03",
+    "lpa-05": "funds-asset-management/draft-lpa/scenario-05",
+    "lpa-06": "funds-asset-management/draft-lpa/scenario-06",
+    "lpa-07": "funds-asset-management/draft-lpa/scenario-07",
+    "lpa-09": "funds-asset-management/draft-lpa/scenario-09",
+    "lpa-10": "funds-asset-management/draft-lpa/scenario-10",
+    "lpa-11": "funds-asset-management/draft-lpa/scenario-11"
+  },
+  "groups": {
+    "lpa-01": "g01",
+    "lpa-02": "g02",
+    "lpa-03": "g03",
+    "lpa-04": "g04",
+    "lpa-05": "g05",
+    "lpa-06": "g06",
+    "lpa-07": "g07",
+    "lpa-08": "g08",
+    "lpa-09": "g09",
+    "lpa-10": "g10",
+    "lpa-11": "g11",
+    "lpa-12": "g01",
+    "lpa-13": "g02",
+    "lpa-14": "g03",
+    "lpa-15": "g04",
+    "lpa-16": "g05",
+    "lpa-17": "g06",
+    "lpa-18": "g07",
+    "lpa-19": "g08",
+    "lpa-20": "g09",
+    "lpa-21": "g10",
+    "lpa-22": "g11"
+  },
+  "selection": {
+    "rule": "Harvey LAB 'draft-lpa' family (22 scenarios = 11 funds x 2 variants). The two variants of a fund form a group and never straddle train/test. Seeded shuffle of the 11 groups: 3 -> train, 6 -> test, using each group's first scenario.",
+    "seed": 20261027,
+    "source": "harveyai/harvey-labs@b58a28ae9fde5ee4b810e53b4fd0a1915325a35d"
+  }
+}

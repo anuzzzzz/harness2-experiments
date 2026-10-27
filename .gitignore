@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+vendor/
+experiments/*/.cache/
+experiments/*/.harness2/runs/
+experiments/*/.harness2/tasks/
+experiments/*/.harness2/.env
+experiments/*/.harness2/*.stdout.json
+.env
