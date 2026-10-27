@@ -17,10 +17,10 @@ on:
         options: [e3-tau-airline, e2-tau-banking, e1-lab-lpa, e4-terminal-bench, e5-swe-pro]
         default: e3-tau-airline
       phase:
-        description: Phase
+        description: "Phase (all = train, then eval, then report)"
         type: choice
-        options: [smoke, train, eval, report, all]
-        default: smoke
+        options: [all, smoke, train, eval, report]
+        default: all
       confirm_spend:
         description: I understand this uses the ANTHROPIC_API_KEY secret and spends up to the experiment budget
         type: boolean
